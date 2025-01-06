@@ -107,7 +107,6 @@ print(menu_options)
 number = input('Enter the number of the task you want to perform: ')
 
 while number != '7':
-   print(menu_options)
    number = input('Enter the number of the task you want to perform: ')
 
    if number == '1':
