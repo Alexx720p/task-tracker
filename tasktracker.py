@@ -24,7 +24,7 @@ def add_task(description):
    task = {
       'id': task_id,
       'description': description,
-      'status': 'not done',
+      'status': 'to do',
       'createdAt': datetime.now().isoformat(),
       'updatedAt': datetime.now().isoformat()
    }
@@ -42,11 +42,11 @@ def list_tasks_done():
    for task in tasks:
       if task['status'] == 'done':
             print(f"{task['id']}: {task['description']} [{task['status']}]")
-            
-def list_tasks_not_done():
+
+def list_tasks_todo():
    tasks = load_tasks()
    for task in tasks:
-      if task['status'] == 'not done':
+      if task['status'] == 'to do':
             print(f"{task['id']}: {task['description']} [{task['status']}]")
 
 def list_tasks_in_progress():
@@ -101,13 +101,12 @@ menu_options = ('1. Add task',
                '4. Delete task',
                '5. Mark task as completed',
                '6. Mark task as in progress',
-               '7. Exit')
-print(menu_options)
+               '7. Exit', )
+print(*menu_options, sep='\n')
 
 number = input('Enter the number of the task you want to perform: ')
 
 while number != '7':
-   number = input('Enter the number of the task you want to perform: ')
 
    if number == '1':
       add_task(input('Enter the task you want to add: '))
@@ -116,8 +115,8 @@ while number != '7':
       print('1. List all tasks',
             '2. List tasks done',
             '3. List tasks in progress',
-            '4. List tasks not done',
-            '5. Exit')
+            '4. List tasks to do',
+            '5. Back to main menu', sep='\n')
       task_list_number = input('Enter the number of the list you want to perform: ')
       while task_list_number != '5':
          if task_list_number == '1':
@@ -127,7 +126,7 @@ while number != '7':
          elif task_list_number == '3':
             list_tasks_in_progress()
          elif task_list_number == '4':
-            list_tasks_not_done()
+            list_tasks_todo()
          else:
             print('Invalid input. Please try again.')
          task_list_number = input('Enter the number of the list you want to perform: ')
@@ -135,64 +134,18 @@ while number != '7':
 
    elif number == '3':
       update_task(int(
-                     input('Enter the task id you want to update: ')), 
-                     input('Enter the new task: '))
+         input('Enter the task id you want to update: ')), 
+         input('Enter the new task: '))
    elif number == '4':
       delete_task(int(input('Enter the task id you want to delete: ')))
    elif number == '5':
       mark_task_as_done(int(input('Enter the task id you want to mark as completed: ')), 'done')
    elif number == '6':
-      mark_task_as_in_progress(int(input('Enter the task id you want to mark as in progress: ')), 'in progress')
+      mark_task_as_in_progress(int(input('Enter the task id you want to mark as in progress: ')),
+                              'in progress')
    else:
       print('Invalid input. Please try again.')
 
    number = input('Enter the number of the task you want to perform: ')
 
 print('Goodbye!')
-
-# if __name__ == '__main__':
-#    import sys
-#    command = sys.argv[1]
-#    if command == 'add':
-#       add_task(sys.argv[2])
-#    elif command == 'list':
-#       list_tasks()
-#    elif command == 'update':
-#       update_task(int(sys.argv[2]), sys.argv[3])
-#    elif command == 'delete':
-#       delete_task(int(sys.argv[2]))
-#    elif command == 'mark':
-#       mark_task(int(sys.argv[2]), sys.argv[3])
-#    else:
-#       print('Unknown command')
-
-# if __name__ == '__main__':
-#    import sys
-#    if len(sys.argv) < 2:
-#       print('No command provided')
-#    else:
-#       command = sys.argv[1]
-#       if command == 'add':
-#             if len(sys.argv) < 3:
-#                print('No task provided to add')
-#             else:
-#                add_task(sys.argv[2])
-#       elif command == 'list':
-#             list_tasks()
-#       elif command == 'update':
-#             if len(sys.argv) < 4:
-#                print('Insufficient arguments for update')
-#             else:
-#                update_task(int(sys.argv[2]), sys.argv[3])
-#       elif command == 'delete':
-#             if len(sys.argv) < 3:
-#                print('No task index provided to delete')
-#             else:
-#                delete_task(int(sys.argv[2]))
-#       elif command == 'mark':
-#             if len(sys.argv) < 4:
-#                print('Insufficient arguments for mark')
-#             else:
-#                mark_task(int(sys.argv[2]), sys.argv[3])
-#       else:
-#             print('Unknown command')
