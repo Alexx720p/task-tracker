@@ -6,10 +6,14 @@ from datetime import datetime
 TASKS_FILE = 'data.json'
 
 def load_tasks():
-    '''Load tasks from a file'''
-    if os.stat('data.json').st_size == 0:
+    '''Load tasks from a file, creating the file if it doesn't exist'''
+    file_path = 'data.json'
+    if not os.path.exists(file_path):
+        with open(file_path, 'w', encoding='utf-8') as file:
+            json.dump([], file)
+    if os.stat(file_path).st_size == 0:
         return []
-    with open('data.json', 'r', encoding='utf-8') as file:
+    with open(file_path, 'r', encoding='utf-8') as file:
         return json.load(file)
 
 def save_tasks(tasks):
